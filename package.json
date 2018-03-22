@@ -9,15 +9,15 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "marked": "^0.3.12",
     "fs-plus": "^3.0.2",
-    "moment": "^2.20.1",
+    "marked": "^0.3.17",
+    "moment": "^2.21.0",
     "semver": "^5.5.0",
     "stacktrace-parser": "^0.1.4",
     "temp": "^0.8.3"
   },
   "devDependencies": {
-    "coffeelint": "^1.16.0"
+    "coffeelint": "^1.16.2"
   },
   "configSchema": {
     "showErrorsInDevMode": {
