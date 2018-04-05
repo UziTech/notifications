@@ -1,3 +1,6 @@
+## 0.69.14
+* Sanitize markdown notifications
+
 ## 0.69.13
 * New style
 
