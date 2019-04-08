@@ -1,3 +1,6 @@
+## 0.69.15
+* Update dependencies
+
 ## 0.69.14
 * Sanitize markdown notifications
 
