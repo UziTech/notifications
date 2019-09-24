@@ -13,7 +13,7 @@
     "lint": "coffeelint ."
   },
   "dependencies": {
-    "dompurify": "^1.0.11",
+    "dompurify": "^2.0.1",
     "fs-plus": "^3.1.1",
     "marked": "^0.7.0",
     "moment": "^2.24.0",
