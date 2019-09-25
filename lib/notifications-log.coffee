@@ -22,7 +22,9 @@ module.exports = class NotificationsLog
     @typesHidden = typesHidden if typesHidden?
     @emitter = new Emitter
     @subscriptions = new CompositeDisposable
+    @subscriptions.add atom.notifications.onDidClearNotifications => @clearLogItems()
     @render()
+    @subscriptions.add new Disposable => @clearLogItems()
 
   render: ->
     @element = document.createElement('div')
@@ -102,13 +104,12 @@ module.exports = class NotificationsLog
     @logItems.push logItem
     @list.insertBefore(logItem.getElement(), @list.firstChild)
 
-    @subscriptions.add new Disposable -> logItem.destroy()
-
-  clear: ->
-    @list.innerHTML = ""
-
   onItemClick: (callback) ->
     @emitter.on 'item-clicked', callback
 
   onDidDestroy: (callback) ->
     @emitter.on 'did-destroy', callback
+
+  clearLogItems: ->
+    logItem.destroy() for logItem in @logItems
+    @logItems = []
