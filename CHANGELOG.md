@@ -1,3 +1,6 @@
+## 0.69.16
+* Update dependencies
+
 ## 0.69.15
 * Update dependencies
 
