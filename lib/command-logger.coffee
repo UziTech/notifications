@@ -67,7 +67,7 @@ class CommandLogger
   #
   # * `command` Command {Object} to be logged
   #   * `type` Name {String} of the command
-  #   * `target` {String} describing where the command was triggered
+  #   * `target` {Object} Node describing where the command was triggered
   logCommand: (command) ->
     {type: name, target, time} = command
     return if command.detail?.jQueryTrigger
