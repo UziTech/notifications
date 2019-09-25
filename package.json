@@ -13,12 +13,12 @@
     "lint": "coffeelint ."
   },
   "dependencies": {
-    "dompurify": "^1.0.11",
+    "dompurify": "^2.0.2",
     "fs-plus": "^3.1.1",
     "marked": "^0.7.0",
     "moment": "^2.24.0",
-    "semver": "^6.2.0",
-    "stacktrace-parser": "^0.1.6",
+    "semver": "^6.3.0",
+    "stacktrace-parser": "^0.1.7",
     "temp": "^0.9.0"
   },
   "devDependencies": {
