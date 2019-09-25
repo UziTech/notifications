@@ -72,6 +72,7 @@ class CommandLogger
     {type: name, target, time} = command
     return if command.detail?.jQueryTrigger
     return if name of ignoredCommands
+    return unless target?
 
     event = @latestEvent()
 
