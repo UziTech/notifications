@@ -8,9 +8,12 @@ module.exports =
 
   generateException: ->
     try
-      a + 1
+      a / 0
     catch e
       errMsg = "#{e.toString()} in #{process.env.ATOM_HOME}/somewhere"
+      errObj = {message: errMsg, url: '/dev/null', line: 2, column: 3, originalError: e}
+      atom.emitter.emit.call(atom, 'will-throw-error', errObj)
+      # atom.emitter.emit.call(atom, 'did-throw-error', errObj)
       window.onerror.call(window, errMsg, '/dev/null', 2, 3, e)
 
   # shortenerResponse
