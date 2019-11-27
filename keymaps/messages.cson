@@ -8,4 +8,4 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/advanced/keymaps
 'atom-workspace':
-  'cmd-alt-t': 'notifications:trigger-error'
+  'cmd-alt-t': 'notifications-plus:trigger-error'
