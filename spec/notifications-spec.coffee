@@ -920,6 +920,63 @@ describe "Notifications", ->
           fatalNotification = fatalError.querySelector('.fatal-notification')
           expect(fatalNotification.innerHTML).toContain '<a href="https://github.com/atom/atom/releases/tag/v0.180.0">latest version</a>'
 
+      describe "when telemetry settings are changed", ->
+        beforeEach ->
+          spyOn(atom, 'inDevMode').andReturn false
+          generateFakeFetchResponses()
+
+        it "does not send fetch when setting is 'no'", ->
+          atom.config.set("notifications-plus.checkFatalIssues", "no")
+          generateException()
+          fatalError = notificationContainer.querySelector('atom-notification.fatal')
+          waitsForPromise ->
+            fatalError.getRenderPromise()
+
+          runs ->
+            button = fatalError.querySelector('.btn')
+            expect(window.fetch).not.toHaveBeenCalled()
+            expect(button.textContent).toBe 'Check for issues'
+
+        it "does not send fetch when telemetry setting is 'no'", ->
+          atom.config.set("core.telemetryConsent", "no")
+          generateException()
+          fatalError = notificationContainer.querySelector('atom-notification.fatal')
+          waitsForPromise ->
+            fatalError.getRenderPromise()
+
+          runs ->
+            button = fatalError.querySelector('.btn')
+            expect(window.fetch).not.toHaveBeenCalled()
+            expect(button.textContent).toBe 'Check for issues'
+
+        it "does send fetch when setting is 'yes'", ->
+          atom.config.set("notifications-plus.checkFatalIssues", "yes")
+          atom.config.set("core.telemetryConsent", "no")
+          generateException()
+          fatalError = notificationContainer.querySelector('atom-notification.fatal')
+          waitsForPromise ->
+            fatalError.getRenderPromise()
+
+          runs ->
+            expect(window.fetch).toHaveBeenCalled()
+
+        it "does send fetch when button is clicked", ->
+          atom.config.set("notifications-plus.checkFatalIssues", "no")
+          generateException()
+          fatalError = notificationContainer.querySelector('atom-notification.fatal')
+          waitsForPromise ->
+            fatalError.getRenderPromise()
+
+          runs ->
+            expect(window.fetch).not.toHaveBeenCalled()
+            button = fatalError.querySelector('.btn')
+            button.click()
+            waitsForPromise ->
+              fatalError.getRenderPromise()
+
+            runs ->
+              expect(window.fetch).toHaveBeenCalled()
+
       describe "when the error has been reported", ->
         beforeEach ->
           spyOn(atom, 'inDevMode').andReturn false
