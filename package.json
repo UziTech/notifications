@@ -33,12 +33,24 @@
     "allowPopups": {
       "type": "string",
       "default": "All",
-      "description": "Allow popup notifications when a notification is received.",
+      "description": "Allow popup notifications when a notification is received. (All notifications will still go into the notification log)",
       "enum": [
-        "All",
-        "Errors",
-        "Dismissable",
-        "None"
+        {
+          "value": "All",
+          "description": "Show all popup notifications"
+        },
+        {
+          "value": "Errors",
+          "description": "Only show popup notifications for errors"
+        },
+        {
+          "value": "Dismissable",
+          "description": "Only show popup notifications that can be dismissed"
+        },
+        {
+          "value": "None",
+          "description": "Don't show any popup notifications"
+        }
       ]
     },
     "defaultTimeout": {
