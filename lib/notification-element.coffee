@@ -3,6 +3,7 @@ fs = require 'fs-plus'
 path = require 'path'
 marked = require 'marked'
 {shell} = require 'electron'
+{Emitter} = require 'atom'
 
 NotificationIssue = require './notification-issue'
 TemplateHelper = require './template-helper'
@@ -52,6 +53,7 @@ class NotificationElement
   autohideTimeout: null
 
   constructor: (@model, @visibilityDuration) ->
+    @emitter = new Emitter
     @fatalTemplate = TemplateHelper.create(FatalMetaNotificationTemplate)
     @metaTemplate = TemplateHelper.create(MetaNotificationTemplate)
     @buttonListTemplate = TemplateHelper.create(ButtonListTemplate)
@@ -190,73 +192,93 @@ class NotificationElement
 
     # We only show the create issue button if it's clearly in atom core or in a package with a repo url
     if issueButton.parentNode?
-      if packageName? and repoUrl?
-        issueButton.textContent = "Create issue on the #{packageName} package"
-      else
-        issueButton.textContent = "Create issue on atom/atom"
+      checkForIssues = =>
+        if packageName? and repoUrl?
+          issueButton.textContent = "Create issue on the #{packageName} package"
+        else
+          issueButton.textContent = "Create issue on atom/atom"
 
-      promises = []
-      promises.push @issue.findSimilarIssues()
-      promises.push UserUtilities.checkAtomUpToDate()
-      promises.push UserUtilities.checkPackageUpToDate(packageName) if packageName?
+        promises = []
+        promises.push @issue.findSimilarIssues()
+        promises.push UserUtilities.checkAtomUpToDate()
+        promises.push UserUtilities.checkPackageUpToDate(packageName) if packageName?
 
-      Promise.all(promises).then (allData) =>
-        [issues, atomCheck, packageCheck] = allData
+        Promise.all(promises).then (allData) =>
+          [issues, atomCheck, packageCheck] = allData
 
-        if issues?.open or issues?.closed
-          issue = issues.open or issues.closed
-          issueButton.setAttribute('href', issue.html_url)
-          issueButton.textContent = "View Issue"
-          fatalNotification.innerHTML += " This issue has already been reported."
-        else if packageCheck? and not packageCheck.upToDate and not packageCheck.isCore
-          issueButton.setAttribute('href', '#')
-          issueButton.textContent = "Check for package updates"
-          issueButton.addEventListener 'click', (e) ->
-            e.preventDefault()
-            command = 'settings-view:check-for-package-updates'
-            atom.commands.dispatch(atom.views.getView(atom.workspace), command)
+          if issues?.open or issues?.closed
+            issue = issues.open or issues.closed
+            issueButton.setAttribute('href', issue.html_url)
+            issueButton.textContent = "View Issue"
+            fatalNotification.innerHTML += " This issue has already been reported."
+          else if packageCheck? and not packageCheck.upToDate and not packageCheck.isCore
+            issueButton.setAttribute('href', '#')
+            issueButton.textContent = "Check for package updates"
+            issueButton.addEventListener 'click', (e) ->
+              e.preventDefault()
+              command = 'settings-view:check-for-package-updates'
+              atom.commands.dispatch(atom.views.getView(atom.workspace), command)
 
-          fatalNotification.innerHTML += """
-                                           <code>#{packageName}</code> is out of date: #{packageCheck.installedVersion} installed;
-                                           #{packageCheck.latestVersion} latest.
-                                           Upgrading to the latest version may fix this issue.
-                                         """
-        else if packageCheck? and not packageCheck.upToDate and packageCheck.isCore
-          issueButton.remove()
+            fatalNotification.innerHTML += """
+                                             <code>#{packageName}</code> is out of date: #{packageCheck.installedVersion} installed;
+                                             #{packageCheck.latestVersion} latest.
+                                             Upgrading to the latest version may fix this issue.
+                                           """
+          else if packageCheck? and not packageCheck.upToDate and packageCheck.isCore
+            issueButton.remove()
 
-          fatalNotification.innerHTML += """
-                                           <br><br>
-                                           Locally installed core Atom package <code>#{packageName}</code> is out of date: #{packageCheck.installedVersion} installed locally;
-                                           #{packageCheck.versionShippedWithAtom} included with the version of Atom you're running.
-                                           Removing the locally installed version may fix this issue.
-                                         """
-
-          packagePath = atom.packages.getLoadedPackage(packageName)?.path
-          if fs.isSymbolicLinkSync(packagePath)
             fatalNotification.innerHTML += """
                                              <br><br>
-                                             Use: <code>apm unlink #{packagePath}</code>
+                                             Locally installed core Atom package <code>#{packageName}</code> is out of date: #{packageCheck.installedVersion} installed locally;
+                                             #{packageCheck.versionShippedWithAtom} included with the version of Atom you're running.
+                                             Removing the locally installed version may fix this issue.
                                            """
-        else if atomCheck? and not atomCheck.upToDate
-          issueButton.remove()
 
-          fatalNotification.innerHTML += """
-                                           Atom is out of date: #{atomCheck.installedVersion} installed;
-                                           #{atomCheck.latestVersion} latest.
-                                           Upgrading to the <a href='https://github.com/atom/atom/releases/tag/v#{atomCheck.latestVersion}'>latest version</a> may fix this issue.
-                                         """
-        else
-          fatalNotification.innerHTML += " You can help by creating an issue. Please explain what actions triggered this error."
-          issueButton.addEventListener 'click', (e) =>
-            e.preventDefault()
-            issueButton.classList.add('opening')
-            @issue.getIssueUrlForSystem().then (issueUrl) ->
-              shell.openExternal(issueUrl)
-              issueButton.classList.remove('opening')
+            packagePath = atom.packages.getLoadedPackage(packageName)?.path
+            if fs.isSymbolicLinkSync(packagePath)
+              fatalNotification.innerHTML += """
+                                               <br><br>
+                                               Use: <code>apm unlink #{packagePath}</code>
+                                             """
+          else if atomCheck? and not atomCheck.upToDate
+            issueButton.remove()
 
-        return
+            fatalNotification.innerHTML += """
+                                             Atom is out of date: #{atomCheck.installedVersion} installed;
+                                             #{atomCheck.latestVersion} latest.
+                                             Upgrading to the <a href='https://github.com/atom/atom/releases/tag/v#{atomCheck.latestVersion}'>latest version</a> may fix this issue.
+                                           """
+          else
+            fatalNotification.innerHTML += " You can help by creating an issue. Please explain what actions triggered this error."
+            issueButton.addEventListener 'click', (e) =>
+              e.preventDefault()
+              issueButton.classList.add('opening')
+              @issue.getIssueUrlForSystem().then (issueUrl) ->
+                shell.openExternal(issueUrl)
+                issueButton.classList.remove('opening')
+
+          @emitter.emit "change"
+          return
+
+      checkFatalIssues = atom.config.get("notifications-plus.checkFatalIssues")
+      telemetryConsent = atom.config.get("core.telemetryConsent")
+      getIssues = checkFatalIssues is "yes" or
+        (checkFatalIssues is "telemetry" and telemetryConsent isnt "no")
+
+      if getIssues
+        checkForIssues()
+      else
+        issueButton.textContent = "Check for issues"
+        issueButton.addEventListener 'click', (e) =>
+          e.preventDefault()
+          @renderPromise = checkForIssues()
+        , {once: true}
+        Promise.resolve()
     else
       Promise.resolve()
+
+  onChange: (callback) ->
+    @emitter.on "change", callback
 
   makeDismissable: ->
     unless @model.isDismissable()

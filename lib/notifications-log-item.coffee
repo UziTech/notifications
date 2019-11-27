@@ -13,6 +13,7 @@ module.exports = class NotificationsLogItem
   render: ->
     notificationView = atom.views.getView(@notification)
     notificationElement = @renderNotification(notificationView)
+    notificationView.onChange => @onNotificationChange(notificationView)
 
     @timestamp = document.createElement('div')
     @timestamp.classList.add('timestamp')
@@ -31,10 +32,6 @@ module.exports = class NotificationsLogItem
         @emitter.emit 'click'
 
     @element.getRenderPromise = -> notificationView.getRenderPromise()
-    if @notification.getType() is 'fatal'
-      notificationView.getRenderPromise().then =>
-        @element.replaceChild(@renderNotification(notificationView), notificationElement)
-
     @subscriptions.add new Disposable => @element.remove()
 
   renderNotification: (view) ->
@@ -61,6 +58,11 @@ module.exports = class NotificationsLogItem
     nElement.appendChild(message)
     nElement.appendChild(buttons)
     nElement
+
+  onNotificationChange: (view) ->
+    notificationElement = @element.querySelector(".notifications-log-notification")
+    if notificationElement
+      @element.replaceChild(@renderNotification(view), notificationElement)
 
   getElement: -> @element
 
