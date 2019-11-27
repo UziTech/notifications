@@ -10,7 +10,8 @@
   },
   "scripts": {
     "test": "atom --test spec",
-    "lint": "coffeelint ."
+    "lint": "coffeelint .",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "dompurify": "^2.0.7",
@@ -22,7 +23,8 @@
     "temp": "^0.9.1"
   },
   "devDependencies": {
-    "coffeelint": "^2.1.0"
+    "coffeelint": "^2.1.0",
+    "semantic-release": "^15.13.31"
   },
   "configSchema": {
     "showErrorsInDevMode": {
