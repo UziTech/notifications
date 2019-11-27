@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/UziTech/notifications/compare/v1.0.0...v1.0.1) (2019-11-27)
+
+
+### Bug Fixes
+
+* add semantic-release ([f5f878c](https://github.com/UziTech/notifications/commit/f5f878cff283e9af8896e61c43b283221f8507d1))
+* use github actions ([#11](https://github.com/UziTech/notifications/issues/11)) ([b360a2e](https://github.com/UziTech/notifications/commit/b360a2e5b9bdcb3f9dedf9eebd626aeceb104e34))
+
 ## 1.0.0
 * Add setting to disable telemetry
 * Update dependencies
