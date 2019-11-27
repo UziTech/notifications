@@ -1,6 +1,5 @@
 # Notifications+ package
-[![Build Status](https://travis-ci.org/UziTech/notifications.svg?branch=master)](https://travis-ci.org/UziTech/notifications)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/q7pdov4qeu2weee4/branch/master?svg=true)](https://ci.appveyor.com/project/UziTech/notifications)
+[![Actions Status](https://github.com/UziTech/notifications/workflows/CI/badge.svg)](https://github.com/UziTech/notifications/actions)
 [![Dependencies Status](https://david-dm.org/UziTech/notifications/status.svg)](https://david-dm.org/UziTech/notifications)
 
 ![notifications](https://cloud.githubusercontent.com/assets/69169/5176406/350d0e80-73fd-11e4-8101-1776b9d6d8bf.gif)
