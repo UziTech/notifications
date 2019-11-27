@@ -58,6 +58,25 @@
       "default": 5000,
       "minimum": 1000,
       "description": "The default notification timeout for a non-dismissable notification."
+    },
+    "checkFatalIssues": {
+      "type": "string",
+      "default": "telemetry",
+      "description": "Automatically check for issues for fatal errors",
+      "enum": [
+        {
+          "value": "yes",
+          "description": "Automatically check for issues"
+        },
+        {
+          "value": "no",
+          "description": "Do not automatically check for issues"
+        },
+        {
+          "value": "telemetry",
+          "description": "Use 'Core:Send Telemetry to the Atom Team' setting"
+        }
+      ]
     }
   },
   "deserializers": {
