@@ -268,7 +268,7 @@ class NotificationElement
       if getIssues
         checkForIssues()
       else
-        issueButton.textContent = "Check for issues"
+        issueButton.textContent = "Check reported issues"
         issueButton.addEventListener 'click', (e) =>
           e.preventDefault()
           @renderPromise = checkForIssues()
