@@ -935,7 +935,7 @@ describe "Notifications", ->
           runs ->
             button = fatalError.querySelector('.btn')
             expect(window.fetch).not.toHaveBeenCalled()
-            expect(button.textContent).toBe 'Check for issues'
+            expect(button.textContent).toBe 'Check reported issues'
 
         it "does not send fetch when telemetry setting is 'no'", ->
           atom.config.set("core.telemetryConsent", "no")
@@ -947,7 +947,7 @@ describe "Notifications", ->
           runs ->
             button = fatalError.querySelector('.btn')
             expect(window.fetch).not.toHaveBeenCalled()
-            expect(button.textContent).toBe 'Check for issues'
+            expect(button.textContent).toBe 'Check reported issues'
 
         it "does send fetch when setting is 'yes'", ->
           atom.config.set("notifications-plus.checkFatalIssues", "yes")
