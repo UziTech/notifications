@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/UziTech/notifications/compare/v1.0.1...v1.0.2) (2019-11-28)
+
+
+### Bug Fixes
+
+* update to stacktrace-parser to 0.1.8 ([61ea45f](https://github.com/UziTech/notifications/commit/61ea45ff7fa481925399f480558c2383da7e6a6b))
+
 ## [1.0.1](https://github.com/UziTech/notifications/compare/v1.0.0...v1.0.1) (2019-11-27)
 
 
