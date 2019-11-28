@@ -169,7 +169,7 @@ Notifications =
 isCoreOrPackageStackTrace = (stack) ->
   StackTraceParser ?= require 'stacktrace-parser'
   for {file} in StackTraceParser.parse(stack)
-    if file is '<embedded>' or fs.isAbsolute(file.replace(/^file:\/\/\//, ''))
+    if file is '<embedded>' or fs.isAbsolute(file)
       return true
   false
 
