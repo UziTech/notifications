@@ -17,7 +17,7 @@ jobs:
         channel: [stable, beta]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: UziTech/action-setup-atom@v1
       with:
         channel: ${{ matrix.channel }}
@@ -28,15 +28,16 @@ jobs:
     - name: Install dependencies
       run: apm ci
     - name: Run tests 👩🏾‍💻
-      run: |
-        git config --global user.email "test@example.com"
-        git config --global user.name "test"
-        atom --test spec
+      run: atom --test spec
+
   Lint:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
       - name: NPM install
         run: npm ci
       - name: Lint ✨
@@ -44,19 +45,23 @@ jobs:
 
   Release:
     needs: [Test, Lint]
-    if: startsWith(github.repository, 'UziTech/') &&
-      github.ref == 'refs/heads/master'
+    if: |
+      github.ref == 'refs/heads/master' &&
+      github.event.repository.fork == false
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: UziTech/action-setup-atom@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
       - name: NPM install
         run: npm ci
       - name: Release 🎉
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ATOM_ACCESS_TOKEN: ${{ secrets.ATOM_ACCESS_TOKEN }}
-        run: npm run semantic-release
+        run: npx semantic-release
 
   Skip:
     if: contains(github.event.head_commit.message, '[skip ci]')
