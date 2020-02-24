@@ -1,7 +1,7 @@
 {
   "name": "notifications-plus",
   "main": "./lib/main",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A tidier way to display Atom notifications.",
   "repository": "https://github.com/UziTech/notifications",
   "license": "MIT",

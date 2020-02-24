@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/UziTech/notifications/compare/v1.0.2...v1.1.0) (2020-02-24)
+
+
+### Bug Fixes
+
+* set config order ([1a6b1a4](https://github.com/UziTech/notifications/commit/1a6b1a4ca779a80789e2ceb40c003836c14ac2f5))
+* update deps ([932d101](https://github.com/UziTech/notifications/commit/932d101da9fb41e659253158297f2c3d2933e753))
+
+
+### Features
+
+* add alwaysDismiss setting ([b0717c8](https://github.com/UziTech/notifications/commit/b0717c8defd3dd878edd43ba8a25b299f83a6be0))
+
 ## [1.0.2](https://github.com/UziTech/notifications/compare/v1.0.1...v1.0.2) (2019-11-28)
 
 
