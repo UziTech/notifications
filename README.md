@@ -33,6 +33,10 @@ Disable certain popup notifications when you don't want to be disturbed.
 
 Disable sending requests automatically to GitHub API for fatal errors.
 
+#### Always Dismiss Notifications
+
+Always dismiss notifications after the timeout.
+
 ## And a few other fixes
 [See all changes](https://github.com/atom/notifications/compare/master...UziTech:master#files_bucket)
 
