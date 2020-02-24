@@ -72,7 +72,7 @@ class NotificationElement
     @handleElementClick = @handleElementClick.bind(this)
     @handleElementMouseEnter = @handleElementMouseEnter.bind(this)
     @handleElementMouseLeave = @handleElementMouseLeave.bind(this)
-    unless @model.isDismissable()
+    if not @model.isDismissable() or atom.config.get('notifications-plus.alwaysDismiss')
       @autohide()
       @element.addEventListener 'click', @handleElementClick
       @element.addEventListener 'mouseenter', @handleElementMouseEnter

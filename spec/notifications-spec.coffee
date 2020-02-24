@@ -116,6 +116,22 @@ describe "Notifications", ->
 
 
     describe "when a dismissable notification is added", ->
+      it "auto removes when alwaysDismiss is true", ->
+        atom.config.set('notifications-plus.alwaysDismiss', true)
+        model = atom.notifications.addSuccess('A message', dismissable: true)
+        notification = notificationContainer.querySelector('atom-notification.success')
+        closeButton = notification.querySelector('.close')
+
+        expect(closeButton).toBeVisible()
+        expect(notification).not.toHaveClass 'remove'
+
+        advanceClock(NotificationElement::visibilityDuration)
+        expect(notification).toHaveClass 'remove'
+        expect(notificationContainer.childNodes.length).toBe 1
+
+        advanceClock(NotificationElement::animationDuration)
+        expect(notificationContainer.childNodes.length).toBe 0
+
       it "is removed when Notification::dismiss() is called", ->
         notification = atom.notifications.addSuccess('A message', dismissable: true)
         notificationElement = notificationContainer.querySelector('atom-notification.success')
