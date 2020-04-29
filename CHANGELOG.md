@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/UziTech/notifications/compare/v1.1.0...v1.1.1) (2020-04-29)
+
+
+### Bug Fixes
+
+* **deps:** update deps ([#13](https://github.com/UziTech/notifications/issues/13)) ([0ade394](https://github.com/UziTech/notifications/commit/0ade394eda053101e48ba0688b919bd3f326b7f2))
+
 # [1.1.0](https://github.com/UziTech/notifications/compare/v1.0.2...v1.1.0) (2020-02-24)
 
 
