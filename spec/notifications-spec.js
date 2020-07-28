@@ -449,7 +449,7 @@ TypeError: undefined is not a function
 					notificationContainer = workspaceElement.querySelector("atom-notifications");
 					fatalError = notificationContainer.querySelector("atom-notification.fatal");
 
-					spyOn(fs, "realpathSync").and.callFake(p => p);
+					spyOn(fatalError.issue, "getRealPath").and.callFake(async p => p);
 					spyOn(fatalError.issue, "getPackagePathsByPackageName").and.callFake(() => ({
 						"save-session": "/Users/someguy/.atom/packages/save-session",
 						"tabs": "/Applications/Atom.app/Contents/Resources/app/node_modules/tabs"
