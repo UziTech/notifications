@@ -64,7 +64,7 @@ describe("Notifications Log", () => {
 			generateFakeFetchResponses();
 		});
 
-		it("adds an .notifications-log-item element to the container with a class corresponding to the type", () => {
+		it("adds an .notifications-log-item element to the container with a class corresponding to the type", async () => {
 			atom.notifications.addSuccess("A message");
 			let notification = notificationsLogContainer.querySelector(".notifications-log-item.success");
 			expect(notificationsLogContainer.childNodes).toHaveLength(2);
@@ -85,6 +85,7 @@ describe("Notifications Log", () => {
 
 			atom.notifications.addFatalError("A message");
 			notification = notificationsLogContainer.querySelector(".notifications-log-item.fatal");
+			await notification.getRenderPromise();
 			expect(notificationsLogContainer.childNodes).toHaveLength(6);
 			expect(notification).toExist();
 			expect(notification.querySelector(".btn-toolbar")).not.toBeEmpty();
@@ -160,8 +161,8 @@ describe("Notifications Log", () => {
 							releases: {latest: "0.10.0"}
 						}
 					});
-					spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(() => "somepackage");
-					spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(() => "https://github.com/someguy/somepackage");
+					spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(async () => "somepackage");
+					spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(async () => "https://github.com/someguy/somepackage");
 					generateException();
 					fatalError = notificationsLogContainer.querySelector(".notifications-log-item.fatal");
 					await fatalError.getRenderPromise();

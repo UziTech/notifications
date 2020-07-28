@@ -37,6 +37,7 @@
 		"no-unused-vars": 2,
 		"no-warning-comments": 1,
 		"no-with": 2,
+		"no-var": 2,
 		"strict": 1,
 
 		"no-restricted-globals": [
@@ -81,7 +82,7 @@
 		"computed-property-spacing": 2,
 		"eol-last": 1,
 		"func-call-spacing": 2,
-		"indent": ["error", "tab"],
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
 		"key-spacing": 2,
 		"keyword-spacing": 2,
 		"line-comment-position": 1,

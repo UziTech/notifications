@@ -456,7 +456,9 @@ TypeError: undefined is not a function
 					}));
 				});
 
-				it("chooses the first package in the trace", () => expect(fatalError.issue.getPackageName()).toBe("save-session"));
+				it("chooses the first package in the trace", async () => {
+					expect(await fatalError.issue.getPackageName()).toBe("save-session");
+				});
 			});
 
 			describe("when an exception is thrown from a package", () => {
@@ -480,7 +482,7 @@ TypeError: undefined is not a function
 					expect(fatalError).toHaveClass("has-close");
 					expect(fatalError.innerHTML).toContain("ReferenceError: a is not defined");
 					expect(fatalError.innerHTML).toContain("<a href=\"https://github.com/UziTech/notifications\">notifications-plus package</a>");
-					expect(fatalError.issue.getPackageName()).toBe("notifications-plus");
+					expect(await fatalError.issue.getPackageName()).toBe("notifications-plus");
 
 					const button = fatalError.querySelector(".btn");
 					expect(button.textContent).toContain("Create issue on the notifications-plus package");
@@ -584,7 +586,7 @@ ReferenceError: path is not defined
 					expect(fatalError).toHaveClass("has-close");
 					expect(fatalError.innerHTML).toContain("Uncaught ReferenceError: path is not defined");
 					expect(fatalError.innerHTML).toContain("<a href=\"https://github.com/UziTech/notifications\">linked-package package</a>");
-					expect(fatalError.issue.getPackageName()).toBe("linked-package");
+					expect(await fatalError.issue.getPackageName()).toBe("linked-package");
 				});
 			});
 
@@ -621,7 +623,7 @@ ReferenceError: path is not defined
 					expect(fatalError).toHaveClass("has-close");
 					expect(fatalError.innerHTML).toContain("ReferenceError: unloaded error");
 					expect(fatalError.innerHTML).toContain("<a href=\"https://github.com/UziTech/notifications\">unloaded package</a>");
-					expect(fatalError.issue.getPackageName()).toBe("unloaded");
+					expect(await fatalError.issue.getPackageName()).toBe("unloaded");
 				});
 			});
 
@@ -657,7 +659,7 @@ ReferenceError: path is not defined
 					expect(fatalError).toHaveClass("has-close");
 					expect(fatalError.innerHTML).toContain("TypeError: Cannot read property 'prototype' of undefined");
 					expect(fatalError.innerHTML).toContain("<a href=\"https://github.com/UziTech/notifications\">broken-load package</a>");
-					expect(fatalError.issue.getPackageName()).toBe("broken-load");
+					expect(await fatalError.issue.getPackageName()).toBe("broken-load");
 				});
 			});
 
@@ -706,7 +708,7 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 					expect(fatalError).toHaveClass("has-close");
 					expect(fatalError.innerHTML).toContain("Failed to load a language-broken-grammar package grammar");
 					expect(fatalError.innerHTML).toContain("<a href=\"https://github.com/UziTech/notifications\">language-broken-grammar package</a>");
-					expect(fatalError.issue.getPackageName()).toBe("language-broken-grammar");
+					expect(await fatalError.issue.getPackageName()).toBe("language-broken-grammar");
 				});
 			});
 
@@ -742,7 +744,7 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 					expect(fatalError).toHaveClass("has-close");
 					expect(fatalError.innerHTML).toContain("TypeError: Cannot read property 'command' of undefined");
 					expect(fatalError.innerHTML).toContain("<a href=\"https://github.com/UziTech/notifications\">broken-activation package</a>");
-					expect(fatalError.issue.getPackageName()).toBe("broken-activation");
+					expect(await fatalError.issue.getPackageName()).toBe("broken-activation");
 				});
 			});
 
@@ -770,7 +772,7 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 
 					expect(fatalError.innerHTML).toContain("ReferenceError: a is not defined");
 					expect(fatalError.innerHTML).toContain("<a href=\"https://github.com/UziTech/notifications\">notifications-plus package</a>");
-					expect(fatalError.issue.getPackageName()).toBe("notifications-plus");
+					expect(await fatalError.issue.getPackageName()).toBe("notifications-plus");
 				});
 			});
 
@@ -796,13 +798,13 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 					issueBody = await fatalError.issue.getIssueBody();
 				});
 
-				it("displays a fatal error with the package name in the error", () => {
+				it("displays a fatal error with the package name in the error", async () => {
 					expect(notificationContainer.childNodes.length).toBe(1);
 					expect(fatalError).toExist();
 					expect(fatalError).toHaveClass("has-close");
 					expect(fatalError.innerHTML).toContain("ReferenceError: a is not defined");
 					expect(fatalError.innerHTML).toContain("bug in Atom");
-					expect(fatalError.issue.getPackageName()).toBeUndefined();
+					expect(await fatalError.issue.getPackageName()).toBeUndefined();
 
 					const button = fatalError.querySelector(".btn");
 					expect(button.textContent).toContain("Create issue on atom/atom");
@@ -896,8 +898,8 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 								releases: {latest: "0.10.0"}
 							}
 						});
-						spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(() => "somepackage");
-						spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(() => "https://github.com/someguy/somepackage");
+						spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(async () => "somepackage");
+						spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(async () => "https://github.com/someguy/somepackage");
 						generateException();
 						fatalError = notificationContainer.querySelector("atom-notification.fatal");
 						await fatalError.getRenderPromise();
@@ -922,8 +924,8 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 								releases: {latest: "0.10.0"}
 							}
 						});
-						spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(() => "sort-lines");
-						spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(() => "https://github.com/atom/sort-lines");
+						spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(async () => "sort-lines");
+						spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(async () => "https://github.com/atom/sort-lines");
 						generateException();
 						fatalError = notificationContainer.querySelector("atom-notification.fatal");
 
@@ -1108,7 +1110,7 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 						expect(button.textContent).toContain("View Issue");
 						expect(button.getAttribute("href")).toBe("http://url.com/ok");
 						expect(fatalNotification.textContent).toContain("already been reported");
-						expect(fetch.calls.first().args[0]).toContain(encodeURIComponent("UziTech/notifications"));
+						expect(fetch.calls.mostRecent().args[0]).toContain(encodeURIComponent("UziTech/notifications"));
 					});
 				});
 
