@@ -4,6 +4,7 @@ const temp = require("temp").track();
 const {Notification} = require("atom");
 const NotificationElement = require("../lib/notification-element");
 const NotificationIssue = require("../lib/notification-issue");
+const UserUtilities = require("../lib/user-utilities");
 const {generateFakeFetchResponses, generateException} = require("./helper");
 
 /* eslint-disable no-sync */
@@ -882,7 +883,6 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 			describe("when the package is out of date", () => {
 				beforeEach(() => {
 					const installedVersion = "0.9.0";
-					const UserUtilities = require("../lib/user-utilities");
 					spyOn(UserUtilities, "getPackageVersion").and.callFake(() => installedVersion);
 					spyOn(atom, "inDevMode").and.returnValue(false);
 				});
@@ -951,7 +951,6 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 					describe("when the locally installed version is lower than Atom's version", () => {
 						beforeEach(async () => {
 							const versionShippedWithAtom = "0.10.0";
-							const UserUtilities = require("../lib/user-utilities");
 							spyOn(UserUtilities, "getPackageVersionShippedWithAtom").and.callFake(() => versionShippedWithAtom);
 
 							generateException();
@@ -975,7 +974,6 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 					describe("when the locally installed version matches Atom's version", () => {
 						beforeEach(async () => {
 							const versionShippedWithAtom = "0.9.0";
-							const UserUtilities = require("../lib/user-utilities");
 							spyOn(UserUtilities, "getPackageVersionShippedWithAtom").and.callFake(() => versionShippedWithAtom);
 
 							generateException();

@@ -2,6 +2,7 @@ const {Notification} = require("atom");
 const NotificationElement = require("../lib/notification-element");
 const NotificationIssue = require("../lib/notification-issue");
 const NotificationsLog = require("../lib/notifications-log");
+const UserUtilities = require("../lib/user-utilities");
 const {generateFakeFetchResponses, generateException} = require("./helper");
 
 describe("Notifications Log", () => {
@@ -152,7 +153,6 @@ describe("Notifications Log", () => {
 			describe("when the package is out of date", () => {
 				beforeEach(async () => {
 					const installedVersion = "0.9.0";
-					const UserUtilities = require("../lib/user-utilities");
 					spyOn(UserUtilities, "getPackageVersion").and.callFake(() => installedVersion);
 					spyOn(atom, "inDevMode").and.returnValue(false);
 					generateFakeFetchResponses({
