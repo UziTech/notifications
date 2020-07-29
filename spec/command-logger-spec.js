@@ -1,6 +1,8 @@
+/** @babel */
+
 // Originally from lee-dohm/bug-report
 
-const CommandLogger = require("../lib/command-logger");
+import CommandLogger from "../lib/command-logger";
 
 describe("CommandLogger", () => {
 	let [element, logger] = [];

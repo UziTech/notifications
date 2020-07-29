@@ -1,3 +1,5 @@
+/** @babel */
+
 describe("Notifications Plus", () => {
 
 	describe("when the notifications package is enabled before activation", () => {

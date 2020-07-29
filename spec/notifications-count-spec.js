@@ -1,5 +1,7 @@
-const {Notification} = require("atom");
-const {generateFakeFetchResponses} = require("./helper");
+/** @babel */
+
+import {Notification} from "atom";
+import {generateFakeFetchResponses} from "./helper";
 
 describe("Notifications Count", () => {
 	let [workspaceElement, statusBarManager, notificationsCountContainer] = [];

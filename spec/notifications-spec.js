@@ -1,11 +1,15 @@
-const fs = require("fs-plus");
-const path = require("path");
-const temp = require("temp").track();
-const {Notification} = require("atom");
-const NotificationElement = require("../lib/notification-element");
-const NotificationIssue = require("../lib/notification-issue");
-const UserUtilities = require("../lib/user-utilities");
-const {generateFakeFetchResponses, generateException} = require("./helper");
+/** @babel */
+
+import fs from "fs-plus";
+import path from "path";
+import temp from "temp";
+import {Notification} from "atom";
+import NotificationElement from "../lib/notification-element";
+import NotificationIssue from "../lib/notification-issue";
+import UserUtilities from "../lib/user-utilities";
+import {generateFakeFetchResponses, generateException} from "./helper";
+
+temp.track();
 
 /* eslint-disable no-sync */
 describe("Notifications", () => {

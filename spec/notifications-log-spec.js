@@ -1,9 +1,11 @@
-const {Notification} = require("atom");
-const NotificationElement = require("../lib/notification-element");
-const NotificationIssue = require("../lib/notification-issue");
-const NotificationsLog = require("../lib/notifications-log");
-const UserUtilities = require("../lib/user-utilities");
-const {generateFakeFetchResponses, generateException} = require("./helper");
+/** @babel */
+
+import {Notification} from "atom";
+import NotificationElement from "../lib/notification-element";
+import NotificationIssue from "../lib/notification-issue";
+import NotificationsLog from "../lib/notifications-log";
+import UserUtilities from "../lib/user-utilities";
+import {generateFakeFetchResponses, generateException} from "./helper";
 
 describe("Notifications Log", () => {
 	let workspaceElement = null;

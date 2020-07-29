@@ -1,4 +1,6 @@
-const {createRunner} = require("atom-jasmine3-test-runner");
+/** @babel */
+
+import {createRunner} from "atom-jasmine3-test-runner";
 
 module.exports = createRunner({
 	specHelper: {

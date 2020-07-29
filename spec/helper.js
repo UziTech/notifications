@@ -1,9 +1,4 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+/** @babel */
 
 /*
 A collection of methods for retrieving information about the user's system for
@@ -27,7 +22,7 @@ async function textPromise(text) {
 	};
 }
 
-module.exports = {
+export default {
 
 	generateException() {
 		try {
