@@ -500,9 +500,6 @@ TypeError: undefined is not a function
 					expect(issueBody).toContain("### Non-Core Packages");
 				});
 
-				// FIXME: this doesnt work on the test server. `apm ls` is not working for some reason.
-				// expect(issueBody).toContain 'notifications '
-
 				it("standardizes platform separators on #win32", async () => {
 					await fatalError.getRenderPromise();
 					issueTitle = fatalError.issue.getIssueTitle();
