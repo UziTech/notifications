@@ -4,7 +4,7 @@ module.exports = createRunner({
 	specHelper: {
 		customMatchers: true,
 		attachToDom: true,
-		ci: true
+		ci: true,
 	},
 }, () => {
 	beforeEach(() => {

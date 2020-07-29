@@ -100,14 +100,14 @@ describe("Notifications Log", () => {
 						className: "btn-one",
 						onDidClick() {
 							clicked.push("one");
-						}
+						},
 					}, {
 						text: "Button Two",
 						className: "btn-two",
 						onDidClick() {
 							clicked.push("two");
-						}
-					}]
+						},
+					}],
 				});
 
 				const notification = notificationsLogContainer.querySelector(".notifications-log-item.success");
@@ -158,8 +158,8 @@ describe("Notifications Log", () => {
 					generateFakeFetchResponses({
 						packageResponse: {
 							repository: {url: "https://github.com/someguy/somepackage"},
-							releases: {latest: "0.10.0"}
-						}
+							releases: {latest: "0.10.0"},
+						},
 					});
 					spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(async () => "somepackage");
 					spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(async () => "https://github.com/someguy/somepackage");
@@ -184,9 +184,9 @@ describe("Notifications Log", () => {
 							{
 								title: "ReferenceError: a is not defined in $ATOM_HOME/somewhere",
 								html_url: "http://url.com/ok",
-								state: "open"
-							}
-						]
+								state: "open",
+							},
+						],
 					}});
 					generateException();
 					fatalError = notificationsLogContainer.querySelector(".notifications-log-item.fatal");

@@ -67,7 +67,7 @@ describe("CommandLogger", () => {
 		it("does not output empty log items", () => expect(logger.getText()).toBe(`\
 \`\`\`
 \`\`\`\
-`
+`,
 		));
 
 		it("formats commands with the time, name and target", () => {
@@ -77,7 +77,7 @@ describe("CommandLogger", () => {
 \`\`\`
      -0:00.0 foo:bar (section#some-id.some-class.another-class)
 \`\`\`\
-`
+`,
 			);
 		});
 
@@ -90,7 +90,7 @@ describe("CommandLogger", () => {
 \`\`\`
      -0:00.0 foo:bar (section.some-class.another-class)
 \`\`\`\
-`
+`,
 			);
 		});
 
@@ -105,7 +105,7 @@ describe("CommandLogger", () => {
      -0:00.0 foo:second (section#some-id.some-class.another-class)
      -0:00.0 foo:third (section#some-id.some-class.another-class)
 \`\`\`\
-`
+`,
 			);
 		});
 
@@ -117,7 +117,7 @@ describe("CommandLogger", () => {
 \`\`\`
   2x -0:00.0 foo:bar (section#some-id.some-class.another-class)
 \`\`\`\
-`
+`,
 			);
 		});
 
@@ -125,7 +125,7 @@ describe("CommandLogger", () => {
 			dispatch("foo:bar");
 			const event = {
 				time: Date.now(),
-				title: "bummer"
+				title: "bummer",
 			};
 
 			expect(logger.getText(event)).toBe(`\
@@ -133,7 +133,7 @@ describe("CommandLogger", () => {
      -0:00.0 foo:bar (section#some-id.some-class.another-class)
      -0:00.0 bummer
 \`\`\`\
-`
+`,
 			);
 		});
 
@@ -141,19 +141,19 @@ describe("CommandLogger", () => {
 			logger.logCommand({
 				type: "foo:bar",
 				time: Date.now() - (11 * 60 * 1000),
-				target: {nodeName: "DIV"}
+				target: {nodeName: "DIV"},
 			});
 
 			logger.logCommand({
 				type: "wow:bummer",
-				target: {nodeName: "DIV"}
+				target: {nodeName: "DIV"},
 			});
 
 			expect(logger.getText()).toBe(`\
 \`\`\`
      -0:00.0 wow:bummer (div)
 \`\`\`\
-`
+`,
 			);
 		});
 
@@ -163,7 +163,7 @@ describe("CommandLogger", () => {
 			expect(logger.getText()).toBe(`\
 \`\`\`
 \`\`\`\
-`
+`,
 			);
 		});
 	});

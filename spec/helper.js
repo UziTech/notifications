@@ -15,7 +15,7 @@ async function jsonPromise(object) {
 		ok: true,
 		async json() {
 			return object;
-		}
+		},
 	};
 }
 async function textPromise(text) {
@@ -23,7 +23,7 @@ async function textPromise(text) {
 		ok: true,
 		async text() {
 			return text;
-		}
+		},
 	};
 }
 
@@ -55,7 +55,7 @@ module.exports = {
 			if (url.indexOf("atom.io/api/packages") > -1) {
 				return jsonPromise(options.packageResponse ? options.packageResponse : {
 					repository: {url: "https://github.com/UziTech/notifications"},
-					releases: {latest: "0.0.0"}
+					releases: {latest: "0.0.0"},
 				});
 			}
 
@@ -69,5 +69,5 @@ module.exports = {
 
 			return jsonPromise(options.issuesResponse ? options.issuesResponse : {items: []});
 		});
-	}
+	},
 };

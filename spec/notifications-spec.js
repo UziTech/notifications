@@ -334,14 +334,14 @@ describe("Notifications", () => {
 						className: "btn-one",
 						onDidClick() {
 							clicked.push("one");
-						}
+						},
 					}, {
 						text: "Button Two",
 						className: "btn-two",
 						onDidClick() {
 							clicked.push("two");
-						}
-					}]
+						},
+					}],
 				});
 
 				const notification = notificationContainer.querySelector("atom-notification.success");
@@ -452,7 +452,7 @@ TypeError: undefined is not a function
 					spyOn(fatalError.issue, "getRealPath").and.callFake(async p => p);
 					spyOn(fatalError.issue, "getPackagePathsByPackageName").and.callFake(() => ({
 						"save-session": "/Users/someguy/.atom/packages/save-session",
-						"tabs": "/Applications/Atom.app/Contents/Resources/app/node_modules/tabs"
+						"tabs": "/Applications/Atom.app/Contents/Resources/app/node_modules/tabs",
 					}));
 				});
 
@@ -557,7 +557,7 @@ TypeError: undefined is not a function
   "version": "1.0.0",
   "repository": "https://github.com/UziTech/notifications"
 }\
-`
+`,
 					);
 					atom.packages.enablePackage("linked-package");
 
@@ -602,7 +602,7 @@ ReferenceError: path is not defined
   "version": "1.0.0",
   "repository": "https://github.com/UziTech/notifications"
 }\
-`
+`,
 					);
 
 					const stack = `Error\n  at ${path.join(packageDir, "index.js")}:1:1`;
@@ -638,7 +638,7 @@ ReferenceError: path is not defined
   "version": "1.0.0",
   "repository": "https://github.com/UziTech/notifications"
 }\
-`
+`,
 					);
 
 					const stack = "TypeError: Cannot read property 'prototype' of undefined\n  at __extends (<anonymous>:1:1)\n  at Object.defineProperty.value [as .coffee] (/Applications/Atom.app/Contents/Resources/app.asar/src/compile-cache.js:169:21)";
@@ -674,7 +674,7 @@ ReferenceError: path is not defined
   "version": "1.0.0",
   "repository": "https://github.com/UziTech/notifications"
 }\
-`
+`,
 					);
 
 					const stack = `\
@@ -723,7 +723,7 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
   "version": "1.0.0",
   "repository": "https://github.com/UziTech/notifications"
 }\
-`
+`,
 					);
 
 					const stack = "TypeError: Cannot read property 'command' of undefined\n  at Object.module.exports.activate (<anonymous>:7:23)\n  at Package.module.exports.Package.activateNow (/Applications/Atom.app/Contents/Resources/app.asar/src/package.js:232:19)";
@@ -892,8 +892,8 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 						generateFakeFetchResponses({
 							packageResponse: {
 								repository: {url: "https://github.com/someguy/somepackage"},
-								releases: {latest: "0.10.0"}
-							}
+								releases: {latest: "0.10.0"},
+							},
 						});
 						spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(async () => "somepackage");
 						spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(async () => "https://github.com/someguy/somepackage");
@@ -918,8 +918,8 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 						generateFakeFetchResponses({
 							packageResponse: {
 								repository: {url: "https://github.com/atom/sort-lines"},
-								releases: {latest: "0.10.0"}
-							}
+								releases: {latest: "0.10.0"},
+							},
 						});
 						spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(async () => "sort-lines");
 						spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(async () => "https://github.com/atom/sort-lines");
@@ -944,8 +944,8 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 					beforeEach(() => generateFakeFetchResponses({
 						packageResponse: {
 							repository: {url: "https://github.com/UziTech/notifications"},
-							releases: {latest: "0.11.0"}
-						}
+							releases: {latest: "0.11.0"},
+						},
 					}));
 
 					describe("when the locally installed version is lower than Atom's version", () => {
@@ -1001,8 +1001,8 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 
 					generateFakeFetchResponses({
 						atomResponse: {
-							name: "0.180.0"
-						}
+							name: "0.180.0",
+						},
 					});
 
 					generateException();
@@ -1091,9 +1091,9 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 								{
 									title: "ReferenceError: a is not defined in $ATOM_HOME/somewhere",
 									html_url: "http://url.com/ok",
-									state: "open"
-								}
-							]
+									state: "open",
+								},
+							],
 						}});
 						generateException();
 						fatalError = notificationContainer.querySelector("atom-notification.fatal");
@@ -1118,9 +1118,9 @@ SyntaxError: Syntax error on line 241, column 18: evalmachine.<anonymous>:1
 								{
 									title: "ReferenceError: a is not defined in $ATOM_HOME/somewhere",
 									html_url: "http://url.com/closed",
-									state: "closed"
-								}
-							]
+									state: "closed",
+								},
+							],
 						}});
 						generateException();
 						fatalError = notificationContainer.querySelector("atom-notification.fatal");
