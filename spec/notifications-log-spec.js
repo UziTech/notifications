@@ -8,15 +8,17 @@ import UserUtilities from "../lib/user-utilities";
 import {generateFakeFetchResponses, generateException} from "./helper";
 
 describe("Notifications Log", () => {
-	let workspaceElement = null;
+	let workspaceElement, notificationsLog;
 
 	beforeEach(async () => {
 		workspaceElement = atom.views.getView(atom.workspace);
 		atom.notifications.clear();
 
-		await atom.packages.activatePackage("notifications-plus");
+		const pkg = (await atom.packages.activatePackage("notifications-plus")).mainModule;
 
 		await atom.workspace.open(NotificationsLog.prototype.getURI());
+
+		({notificationsLog} = pkg);
 	});
 
 	describe("when the package is activated", () => {
@@ -40,7 +42,8 @@ describe("Notifications Log", () => {
 
 			await atom.packages.activatePackage("notifications-plus");
 
-			await atom.workspace.open(NotificationsLog.prototype.getURI());
+			const nLog = await atom.workspace.open(NotificationsLog.prototype.getURI());
+			await nLog.update();
 
 			const notificationsLogContainer = workspaceElement.querySelector(".notifications-log-items");
 			let notification = notificationsLogContainer.querySelector(".notifications-log-notification.warning");
@@ -53,7 +56,7 @@ describe("Notifications Log", () => {
 	describe("when notifications are added to atom.notifications", () => {
 		let notificationsLogContainer = null;
 
-		beforeEach(() => {
+		beforeEach(async () => {
 			const enableInitNotification = atom.notifications.addSuccess("A message to trigger initialization", {dismissable: true});
 			enableInitNotification.dismiss();
 
@@ -61,6 +64,7 @@ describe("Notifications Log", () => {
 
 			jasmine.clock().tick(NotificationElement.prototype.animationDuration);
 
+			await notificationsLog.update();
 			notificationsLogContainer = workspaceElement.querySelector(".notifications-log-items");
 			jasmine.attachToDOM(workspaceElement);
 
@@ -69,24 +73,29 @@ describe("Notifications Log", () => {
 
 		it("adds an .notifications-log-item element to the container with a class corresponding to the type", async () => {
 			atom.notifications.addSuccess("A message");
+			await notificationsLog.update();
 			let notification = notificationsLogContainer.querySelector(".notifications-log-item.success");
 			expect(notificationsLogContainer.childNodes).toHaveLength(2);
 			expect(notification.querySelector(".message").textContent.trim()).toBe("A message");
 			expect(notification.querySelector(".btn-toolbar")).toBeEmpty();
 
 			atom.notifications.addInfo("A message");
+			await notificationsLog.update();
 			expect(notificationsLogContainer.childNodes).toHaveLength(3);
 			expect(notificationsLogContainer.querySelector(".notifications-log-item.info")).toExist();
 
 			atom.notifications.addWarning("A message");
+			await notificationsLog.update();
 			expect(notificationsLogContainer.childNodes).toHaveLength(4);
 			expect(notificationsLogContainer.querySelector(".notifications-log-item.warning")).toExist();
 
 			atom.notifications.addError("A message");
+			await notificationsLog.update();
 			expect(notificationsLogContainer.childNodes).toHaveLength(5);
 			expect(notificationsLogContainer.querySelector(".notifications-log-item.error")).toExist();
 
 			atom.notifications.addFatalError("A message");
+			await notificationsLog.update();
 			notification = notificationsLogContainer.querySelector(".notifications-log-item.fatal");
 			await notification.getRenderPromise();
 			expect(notificationsLogContainer.childNodes).toHaveLength(6);
@@ -95,7 +104,7 @@ describe("Notifications Log", () => {
 		});
 
 		describe("when the `buttons` options is used", () => {
-			it("displays the buttons in the .btn-toolbar element", () => {
+			it("displays the buttons in the .btn-toolbar element", async () => {
 				const clicked = [];
 				atom.notifications.addSuccess("A message", {
 					buttons: [{
@@ -112,6 +121,7 @@ describe("Notifications Log", () => {
 						},
 					}],
 				});
+				await notificationsLog.update();
 
 				const notification = notificationsLogContainer.querySelector(".notifications-log-item.success");
 				expect(notification.querySelector(".btn-toolbar")).not.toBeEmpty();
@@ -139,6 +149,7 @@ describe("Notifications Log", () => {
 					spyOn(atom, "inDevMode").and.returnValue(false);
 					generateFakeFetchResponses({issuesErrorResponse: "403"});
 					generateException();
+					await notificationsLog.update();
 					fatalError = notificationsLogContainer.querySelector(".notifications-log-item.fatal");
 					await fatalError.getRenderPromise();
 				});
@@ -166,6 +177,7 @@ describe("Notifications Log", () => {
 					spyOn(NotificationIssue.prototype, "getPackageName").and.callFake(async () => "somepackage");
 					spyOn(NotificationIssue.prototype, "getRepoUrl").and.callFake(async () => "https://github.com/someguy/somepackage");
 					generateException();
+					await notificationsLog.update();
 					fatalError = notificationsLogContainer.querySelector(".notifications-log-item.fatal");
 					await fatalError.getRenderPromise();
 				});
@@ -191,6 +203,7 @@ describe("Notifications Log", () => {
 						],
 					}});
 					generateException();
+					await notificationsLog.update();
 					fatalError = notificationsLogContainer.querySelector(".notifications-log-item.fatal");
 					await fatalError.getRenderPromise();
 				});
@@ -204,12 +217,13 @@ describe("Notifications Log", () => {
 		});
 
 		describe("when a log item is clicked", () => {
-			let [notification, notificationView, logItem] = [];
+			let notification, notificationView, logItem;
 
 			describe("when the notification is not dismissed", () => describe("when the notification is not dismissable", () => {
 
-				beforeEach(() => {
+				beforeEach(async () => {
 					notification = atom.notifications.addInfo("A message");
+					await notificationsLog.update();
 					notificationView = atom.views.getView(notification);
 					logItem = notificationsLogContainer.querySelector(".notifications-log-item.info");
 				});
@@ -229,8 +243,9 @@ describe("Notifications Log", () => {
 
 			describe("when the notification is dismissed", () => {
 
-				beforeEach(() => {
+				beforeEach(async () => {
 					notification = atom.notifications.addInfo("A message", {dismissable: true});
+					await notificationsLog.update();
 					notificationView = atom.views.getView(notification);
 					logItem = notificationsLogContainer.querySelector(".notifications-log-item.info");
 					notification.dismiss();
@@ -269,14 +284,16 @@ describe("Notifications Log", () => {
 
 	describe("when notifications are cleared", () => {
 
-		beforeEach(() => {
+		beforeEach(async () => {
 			const clearButton = workspaceElement.querySelector(".notifications-log .notifications-clear-log");
 			atom.notifications.addInfo("A message", {dismissable: true});
 			atom.notifications.addInfo("non-dismissable");
+			await notificationsLog.update();
 			clearButton.click();
+			await notificationsLog.update();
 		});
 
-		it("clears the notifications", () => {
+		it("clears the notifications", async () => {
 			expect(atom.notifications.getNotifications()).toHaveLength(0);
 			const notifications = workspaceElement.querySelector("atom-notifications");
 
@@ -305,11 +322,9 @@ describe("Notifications Log", () => {
 				beforeEach(() => notificationsLogPane.destroyItems());
 
 				it("opens the pane", async () => {
-					let [notificationsLog] = [];
+					const nLog = await atom.workspace.toggle(NotificationsLog.prototype.getURI());
 
-					notificationsLog = await atom.workspace.toggle(NotificationsLog.prototype.getURI());
-
-					expect(notificationsLog).toBeDefined();
+					expect(nLog).toBeDefined();
 				});
 
 				describe("when notifications are displayed", () => {
@@ -319,6 +334,7 @@ describe("Notifications Log", () => {
 					it("lists all notifications", async () => {
 						await atom.workspace.toggle(NotificationsLog.prototype.getURI());
 
+						await notificationsLog.update();
 						const notificationsLogContainer = workspaceElement.querySelector(".notifications-log-items");
 						expect(notificationsLogContainer.childNodes).toHaveLength(1);
 					});
@@ -332,11 +348,9 @@ describe("Notifications Log", () => {
 				});
 
 				it("opens the pane", async () => {
-					let [notificationsLog] = [];
+					const nLog = await atom.workspace.toggle(NotificationsLog.prototype.getURI());
 
-					notificationsLog = await atom.workspace.toggle(NotificationsLog.prototype.getURI());
-
-					expect(notificationsLog).toBeDefined();
+					expect(nLog).toBeDefined();
 				});
 			});
 
@@ -347,11 +361,9 @@ describe("Notifications Log", () => {
 				});
 
 				it("closes the pane", async () => {
-					let notificationsLog = null;
+					const nLog = await atom.workspace.toggle(NotificationsLog.prototype.getURI());
 
-					notificationsLog = await atom.workspace.toggle(NotificationsLog.prototype.getURI());
-
-					expect(notificationsLog).toBeUndefined();
+					expect(nLog).toBeUndefined();
 				});
 			});
 		});
