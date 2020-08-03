@@ -1,0 +1,136 @@
+{
+	"env": {
+		"es6": true,
+		"browser": true,
+		"node": true,
+		"jasmine": true,
+		"atomtest": true
+	},
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": 2018,
+		"ecmaFeatures": {
+			"jsx": true,
+			"impliedStrict": true
+		}
+	},
+	"plugins": [
+		"react"
+	],
+	"extends": [
+		"eslint:recommended"
+	],
+	"rules": {
+		"valid-jsdoc": "warn",
+
+		"block-scoped-var": "error",
+		"curly": "error",
+		"default-case": "error",
+		"dot-location": ["error", "property"],
+		"eqeqeq": "error",
+		"no-else-return": "warn",
+		"no-eval": "error",
+		"no-loop-func": "warn",
+		"no-multi-spaces": "warn",
+		"no-param-reassign": "error",
+		"no-unused-expressions": "warn",
+		"no-unused-vars": "error",
+		"no-warning-comments": "warn",
+		"no-with": "error",
+		"no-var": "error",
+		"strict": "warn",
+
+		"no-restricted-globals": [
+						"error",
+			{
+				"name": "fit",
+				"message": "Do not commit focused tests."
+						},
+			{
+				"name": "ffit",
+				"message": "Do not commit focused tests."
+						},
+			{
+				"name": "fffit",
+				"message": "Do not commit focused tests."
+						},
+			{
+				"name": "fdescribe",
+				"message": "Do not commit focused tests."
+						},
+			{
+				"name": "ffdescribe",
+				"message": "Do not commit focused tests."
+						},
+			{
+				"name": "fffdescribe",
+				"message": "Do not commit focused tests."
+						}
+				],
+		"no-console": "warn",
+		"no-shadow": "warn",
+		"no-undef": "error",
+		"no-undefined": "error",
+		"no-use-before-define": "error",
+		"no-sync": "warn",
+
+		"array-bracket-spacing": "error",
+		"block-spacing": "error",
+		"brace-style": ["error", "1tbs"],
+		"comma-spacing": "error",
+		"comma-style": "error",
+		"comma-dangle": ["error", "always-multiline"],
+		"computed-property-spacing": "error",
+		"eol-last": "warn",
+		"func-call-spacing": "error",
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"key-spacing": "error",
+		"keyword-spacing": "error",
+		"line-comment-position": "warn",
+		"linebreak-style": "error",
+		"lines-around-comment": "error",
+		"lines-between-class-members": "error",
+		"new-parens": "error",
+		"no-array-constructor": "error",
+		"no-whitespace-before-property": "error",
+		"object-curly-newline": ["error", {
+			"consistent": true
+		}],
+		"object-curly-spacing": "error",
+		"quotes": "warn",
+		"semi": "error",
+		"space-before-blocks": "error",
+		"space-before-function-paren": ["error", {
+			"anonymous": "always",
+			"named": "never",
+			"asyncArrow": "always"
+		}],
+		"space-in-parens": "error",
+		"space-infix-ops": "error",
+		"space-unary-ops": "error",
+		"spaced-comment": "warn",
+		"switch-colon-spacing": "error",
+
+		"arrow-spacing": "error",
+		"prefer-const": "warn",
+		"prefer-rest-params": "warn",
+		"prefer-spread": "warn",
+		"prefer-template": "warn",
+		"rest-spread-spacing": "error",
+		"template-curly-spacing": "error",
+
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
+		"react/jsx-indent": ["error", "tab"],
+		"react/jsx-no-bind": "error"
+	},
+	"globals": {
+		"atom": false,
+		"pass": false
+	},
+	"settings": {
+		"react": {
+			"version": "16"
+		}
+	}
+}
