@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/UziTech/notifications/compare/v1.1.1...v2.0.0) (2020-08-03)
+
+
+### Bug Fixes
+
+* decaffeinate and use etch ([#15](https://github.com/UziTech/notifications/issues/15)) ([00d14bd](https://github.com/UziTech/notifications/commit/00d14bd70d611ed59318013285506b2c1a95360a))
+
+
+### BREAKING CHANGES
+
+* Move source code to javascript and move some views to etch
+
 ## [1.1.1](https://github.com/UziTech/notifications/compare/v1.1.0...v1.1.1) (2020-04-29)
 
 
