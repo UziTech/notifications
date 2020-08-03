@@ -8,13 +8,15 @@ import UserUtilities from "../lib/user-utilities";
 import {generateFakeFetchResponses, generateException} from "./helper";
 
 describe("Notifications Log", () => {
-	let workspaceElement, notificationsLog;
+	let workspaceElement, notificationsLog, visibilityDuration;
 
 	beforeEach(async () => {
 		workspaceElement = atom.views.getView(atom.workspace);
 		atom.notifications.clear();
 
 		const pkg = (await atom.packages.activatePackage("notifications-plus")).mainModule;
+
+		visibilityDuration = atom.config.get("notifications-plus.defaultTimeout");
 
 		await atom.workspace.open(NotificationsLog.prototype.getURI());
 
@@ -60,9 +62,9 @@ describe("Notifications Log", () => {
 			const enableInitNotification = atom.notifications.addSuccess("A message to trigger initialization", {dismissable: true});
 			enableInitNotification.dismiss();
 
-			jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+			jasmine.clock().tick(visibilityDuration);
 
-			jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+			jasmine.clock().tick(NotificationElement.animationDuration);
 
 			await notificationsLog.update();
 			notificationsLogContainer = workspaceElement.querySelector(".notifications-log-items");
@@ -234,9 +236,9 @@ describe("Notifications Log", () => {
 					expect(notification.isDismissable()).toBe(true);
 
 
-					jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+					jasmine.clock().tick(visibilityDuration);
 
-					jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+					jasmine.clock().tick(NotificationElement.animationDuration);
 					expect(notificationView.element).toBeVisible();
 				});
 			}));
@@ -250,7 +252,7 @@ describe("Notifications Log", () => {
 					logItem = notificationsLogContainer.querySelector(".notifications-log-item.info");
 					notification.dismiss();
 
-					jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+					jasmine.clock().tick(NotificationElement.animationDuration);
 				});
 
 				it("displays the notification", () => {
@@ -271,7 +273,7 @@ describe("Notifications Log", () => {
 
 						notification.dismiss();
 
-						jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+						jasmine.clock().tick(NotificationElement.animationDuration);
 
 						expect(didDismiss).toBe(true);
 						expect(notification.dismissed).toBe(true);
@@ -297,7 +299,7 @@ describe("Notifications Log", () => {
 			expect(atom.notifications.getNotifications()).toHaveLength(0);
 			const notifications = workspaceElement.querySelector("atom-notifications");
 
-			jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+			jasmine.clock().tick(NotificationElement.animationDuration);
 			expect(notifications.children).toHaveLength(0);
 			const logItems = workspaceElement.querySelector(".notifications-log-items");
 			expect(logItems.children).toHaveLength(0);

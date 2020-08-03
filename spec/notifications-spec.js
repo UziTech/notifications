@@ -13,12 +13,14 @@ temp.track();
 
 /* eslint-disable no-sync */
 describe("Notifications", () => {
-	let [workspaceElement, activationPromise] = [];
+	let workspaceElement, activationPromise, visibilityDuration;
 
 	beforeEach(async () => {
 		workspaceElement = atom.views.getView(atom.workspace);
 		atom.notifications.clear();
 		activationPromise = atom.packages.activatePackage("notifications-plus");
+
+		visibilityDuration = atom.config.get("notifications-plus.defaultTimeout");
 
 		await activationPromise;
 	});
@@ -47,12 +49,12 @@ describe("Notifications", () => {
 	});
 
 	describe("when notifications are added to atom.notifications", () => {
-		let notificationContainer = null;
+		let notificationContainer;
 		beforeEach(() => {
 			const enableInitNotification = atom.notifications.addSuccess("A message to trigger initialization", {dismissable: true});
 			enableInitNotification.dismiss();
-			jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
-			jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+			jasmine.clock().tick(visibilityDuration);
+			jasmine.clock().tick(NotificationElement.animationDuration);
 
 			notificationContainer = workspaceElement.querySelector("atom-notifications");
 			jasmine.attachToDOM(workspaceElement);
@@ -134,11 +136,11 @@ describe("Notifications", () => {
 				expect(closeButton).toBeVisible();
 				expect(notification).not.toHaveClass("remove");
 
-				jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+				jasmine.clock().tick(visibilityDuration);
 				expect(notification).toHaveClass("remove");
 				expect(notificationContainer.childNodes.length).toBe(1);
 
-				jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+				jasmine.clock().tick(NotificationElement.animationDuration);
 				expect(notificationContainer.childNodes.length).toBe(0);
 			});
 
@@ -150,10 +152,10 @@ describe("Notifications", () => {
 
 				notification.dismiss();
 
-				jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+				jasmine.clock().tick(visibilityDuration);
 				expect(notificationElement).toHaveClass("remove");
 
-				jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+				jasmine.clock().tick(NotificationElement.animationDuration);
 				expect(notificationContainer.childNodes.length).toBe(0);
 			});
 
@@ -170,10 +172,10 @@ describe("Notifications", () => {
 				notificationElement.focus();
 				notificationElement.querySelector(".close.icon").click();
 
-				jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+				jasmine.clock().tick(visibilityDuration);
 				expect(notificationElement).toHaveClass("remove");
 
-				jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+				jasmine.clock().tick(NotificationElement.animationDuration);
 				expect(notificationContainer.childNodes.length).toBe(0);
 			});
 
@@ -185,10 +187,10 @@ describe("Notifications", () => {
 
 				atom.commands.dispatch(workspaceElement, "core:cancel");
 
-				jasmine.clock().tick(NotificationElement.prototype.visibilityDuration * 3);
+				jasmine.clock().tick(visibilityDuration * 3);
 				expect(notificationElement).toHaveClass("remove");
 
-				jasmine.clock().tick(NotificationElement.prototype.animationDuration * 3);
+				jasmine.clock().tick(NotificationElement.animationDuration * 3);
 				expect(notificationContainer.childNodes.length).toBe(0);
 			});
 
@@ -207,22 +209,22 @@ describe("Notifications", () => {
 
 				notification1.dismiss();
 
-				jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
-				jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+				jasmine.clock().tick(visibilityDuration);
+				jasmine.clock().tick(NotificationElement.animationDuration);
 				expect(notificationContainer.childNodes.length).toBe(1);
 				expect(notificationElement2).toHaveFocus();
 
 				notificationElement2.querySelector(".close.icon").click();
 
-				jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
-				jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+				jasmine.clock().tick(visibilityDuration);
+				jasmine.clock().tick(NotificationElement.animationDuration);
 				expect(notificationContainer.childNodes.length).toBe(0);
 				expect(atom.views.getView(atom.workspace.getActiveTextEditor())).toHaveFocus();
 			});
 		});
 
 		describe("when an autoclose notification is added", () => {
-			let [notification, closeButton, model] = [];
+			let notification, closeButton, model;
 
 			beforeEach(() => {
 				model = atom.notifications.addSuccess("A message");
@@ -234,11 +236,11 @@ describe("Notifications", () => {
 				expect(closeButton).not.toBeVisible();
 				expect(notification).not.toHaveClass("remove");
 
-				jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+				jasmine.clock().tick(visibilityDuration);
 				expect(notification).toHaveClass("remove");
 				expect(notificationContainer.childNodes.length).toBe(1);
 
-				jasmine.clock().tick(NotificationElement.prototype.animationDuration);
+				jasmine.clock().tick(NotificationElement.animationDuration);
 				expect(notificationContainer.childNodes.length).toBe(0);
 			});
 
@@ -249,7 +251,7 @@ describe("Notifications", () => {
 					expect(closeButton).toBeVisible();
 					expect(notification).toHaveClass("has-close");
 
-					jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+					jasmine.clock().tick(visibilityDuration);
 					expect(notification).not.toHaveClass("remove");
 				});
 
@@ -268,7 +270,7 @@ describe("Notifications", () => {
 				it("shows the close button", () => expect(closeButton).toBeVisible());
 
 				it("makes the notification dismissable if hovering past close timeout", () => {
-					jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+					jasmine.clock().tick(visibilityDuration);
 					expect(closeButton).toBeVisible();
 					expect(notification).toHaveClass("has-close");
 					expect(notification).not.toHaveClass("remove");
@@ -280,7 +282,7 @@ describe("Notifications", () => {
 
 					it("dismisses the notification after the close timeout", () => {
 						expect(closeButton).not.toBeVisible();
-						jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+						jasmine.clock().tick(visibilityDuration);
 						expect(notification).toHaveClass("remove");
 					});
 				}));
@@ -288,7 +290,7 @@ describe("Notifications", () => {
 		});
 
 		describe("when the default timeout setting is changed", () => {
-			let [notification] = [];
+			let notification;
 
 			beforeEach(() => {
 				atom.config.set("notifications-plus.defaultTimeout", 1000);
@@ -311,9 +313,9 @@ describe("Notifications", () => {
 
 				it("uses the 'timeout' value for the autoclose timeout", () => {
 					expect(notification).not.toHaveClass("remove");
-					jasmine.clock().tick(NotificationElement.prototype.visibilityDuration);
+					jasmine.clock().tick(visibilityDuration);
 					expect(notification).not.toHaveClass("remove");
-					jasmine.clock().tick(10000 - NotificationElement.prototype.visibilityDuration);
+					jasmine.clock().tick(10000 - visibilityDuration);
 					expect(notification).toHaveClass("remove");
 				});
 			});
@@ -370,12 +372,10 @@ describe("Notifications", () => {
 
 		describe("when an exception is thrown", () => {
 			let fatalError, issueBody, issueTitle;
-			[notificationContainer, fatalError, issueTitle, issueBody] = [];
 			describe("when the editor is in dev mode", () => {
 				beforeEach(() => {
 					spyOn(atom, "inDevMode").and.returnValue(true);
 					generateException();
-					notificationContainer = workspaceElement.querySelector("atom-notifications");
 					fatalError = notificationContainer.querySelector("atom-notification.fatal");
 				});
 

@@ -4,7 +4,7 @@ import {Notification} from "atom";
 import {generateFakeFetchResponses} from "./helper";
 
 describe("Notifications Count", () => {
-	let [workspaceElement, statusBarManager, notificationsCountContainer] = [];
+	let workspaceElement, statusBarManager, notificationsCountContainer;
 
 	beforeEach(async () => {
 		workspaceElement = atom.views.getView(atom.workspace);

@@ -5,7 +5,7 @@
 import CommandLogger from "../lib/command-logger";
 
 describe("CommandLogger", () => {
-	let [element, logger] = [];
+	let element, logger;
 
 	const dispatch = command => atom.commands.dispatch(element, command);
 
