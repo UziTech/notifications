@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/UziTech/notifications/compare/v2.0.1...v2.0.2) (2020-09-14)
+
+
+### Bug Fixes
+
+* **deps:** Bump moment from 2.27.0 to 2.28.0 ([#27](https://github.com/UziTech/notifications/issues/27)) ([fc23b98](https://github.com/UziTech/notifications/commit/fc23b983dde6bfafd2568aa0729fa356a36bdbdc))
+
 ## [2.0.1](https://github.com/UziTech/notifications/compare/v2.0.0...v2.0.1) (2020-09-04)
 
 
