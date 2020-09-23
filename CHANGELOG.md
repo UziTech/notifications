@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/UziTech/notifications/compare/v2.0.3...v2.0.4) (2020-09-23)
+
+
+### Bug Fixes
+
+* **deps:** Update deps and use luxon instead of moment ([#36](https://github.com/UziTech/notifications/issues/36)) ([ecaec44](https://github.com/UziTech/notifications/commit/ecaec446103fc9f0ec05213d2a4dff89744f5aaf))
+
 ## [2.0.3](https://github.com/UziTech/notifications/compare/v2.0.2...v2.0.3) (2020-09-21)
 
 
