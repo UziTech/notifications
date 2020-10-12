@@ -28,7 +28,7 @@
     "atom-jasmine3-test-runner": "^5.1.2",
     "eslint": "^7.10.0",
     "eslint-plugin-react": "^7.21.3",
-    "semantic-release": "^17.1.2"
+    "semantic-release": "^17.2.0"
   },
   "deserializers": {
     "notifications-plus/NotificationsLog": "createLog"
