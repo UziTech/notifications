@@ -1,3 +1,10 @@
+## [2.0.6](https://github.com/UziTech/notifications/compare/v2.0.5...v2.0.6) (2020-10-26)
+
+
+### Bug Fixes
+
+* move temp to devDependencies ([03b61bd](https://github.com/UziTech/notifications/commit/03b61bd5c83d2ccf193cdcfaae7684351b260909))
+
 ## [2.0.5](https://github.com/UziTech/notifications/compare/v2.0.4...v2.0.5) (2020-10-22)
 
 
