@@ -1,3 +1,10 @@
+## [2.0.8](https://github.com/UziTech/notifications/compare/v2.0.7...v2.0.8) (2020-11-05)
+
+
+### Bug Fixes
+
+* **deps:** bump marked from 1.2.2 to 1.2.3 ([#62](https://github.com/UziTech/notifications/issues/62)) ([224317b](https://github.com/UziTech/notifications/commit/224317b7cd6f799ce55846ef7ddb6040dd48255b))
+
 ## [2.0.7](https://github.com/UziTech/notifications/compare/v2.0.6...v2.0.7) (2020-11-03)
 
 
