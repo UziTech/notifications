@@ -18,7 +18,7 @@
     "etch": "^0.14.1",
     "fs-plus": "^3.1.1",
     "luxon": "^1.25.0",
-    "marked": "^1.2.3",
+    "marked": "^1.2.4",
     "semver": "^7.3.2",
     "stacktrace-parser": "^0.1.10"
   },
