@@ -1,3 +1,10 @@
+## [2.0.11](https://github.com/UziTech/notifications/compare/v2.0.10...v2.0.11) (2020-12-02)
+
+
+### Bug Fixes
+
+* **deps:** bump semver from 7.3.2 to 7.3.4 ([#72](https://github.com/UziTech/notifications/issues/72)) ([c23b168](https://github.com/UziTech/notifications/commit/c23b1688bf77bf204a4dd1b3b1b8ef831a508c21))
+
 ## [2.0.10](https://github.com/UziTech/notifications/compare/v2.0.9...v2.0.10) (2020-11-20)
 
 
