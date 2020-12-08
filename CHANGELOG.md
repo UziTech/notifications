@@ -1,3 +1,10 @@
+## [2.0.12](https://github.com/UziTech/notifications/compare/v2.0.11...v2.0.12) (2020-12-08)
+
+
+### Bug Fixes
+
+* **deps:** bump dompurify from 2.2.2 to 2.2.3 ([#74](https://github.com/UziTech/notifications/issues/74)) ([5a49d9c](https://github.com/UziTech/notifications/commit/5a49d9c76ac124c8d04056216d171b0680ddbab2))
+
 ## [2.0.11](https://github.com/UziTech/notifications/compare/v2.0.10...v2.0.11) (2020-12-02)
 
 
