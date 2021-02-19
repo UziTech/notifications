@@ -1,3 +1,10 @@
+## [2.0.17](https://github.com/UziTech/notifications/compare/v2.0.16...v2.0.17) (2021-02-19)
+
+
+### Bug Fixes
+
+* **deps:** bump luxon from 1.25.0 to 1.26.0 ([#98](https://github.com/UziTech/notifications/issues/98)) ([0b7db84](https://github.com/UziTech/notifications/commit/0b7db847a1f6549776c96b9035f0934cf31e1292))
+
 ## [2.0.16](https://github.com/UziTech/notifications/compare/v2.0.15...v2.0.16) (2021-02-09)
 
 
