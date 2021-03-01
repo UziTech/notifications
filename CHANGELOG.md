@@ -1,3 +1,10 @@
+## [2.0.18](https://github.com/UziTech/notifications/compare/v2.0.17...v2.0.18) (2021-03-01)
+
+
+### Bug Fixes
+
+* **deps:** bump marked from 2.0.0 to 2.0.1 ([#103](https://github.com/UziTech/notifications/issues/103)) ([a5aeb14](https://github.com/UziTech/notifications/commit/a5aeb14c94e300053e79d78600c4d95ef8977767))
+
 ## [2.0.17](https://github.com/UziTech/notifications/compare/v2.0.16...v2.0.17) (2021-02-19)
 
 
