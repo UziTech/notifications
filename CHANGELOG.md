@@ -1,3 +1,10 @@
+## [2.0.20](https://github.com/UziTech/notifications/compare/v2.0.19...v2.0.20) (2021-03-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency semver to ^7.3.5 ([dd78578](https://github.com/UziTech/notifications/commit/dd785786c1c36e79e2fecf30df7eda225c18248e))
+
 ## [2.0.19](https://github.com/UziTech/notifications/compare/v2.0.18...v2.0.19) (2021-03-13)
 
 
