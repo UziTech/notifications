@@ -1,3 +1,10 @@
+## [2.0.23](https://github.com/UziTech/notifications/compare/v2.0.22...v2.0.23) (2021-05-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency marked to ^2.0.4 ([2d0659c](https://github.com/UziTech/notifications/commit/2d0659cfa2095ece1abd4eeef019f7b16dc9e74c))
+
 ## [2.0.22](https://github.com/UziTech/notifications/compare/v2.0.21...v2.0.22) (2021-05-14)
 
 
