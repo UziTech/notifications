@@ -1,3 +1,10 @@
+## [2.0.26](https://github.com/UziTech/notifications/compare/v2.0.25...v2.0.26) (2021-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency marked to ^2.1.3 ([c87c3b7](https://github.com/UziTech/notifications/commit/c87c3b75f292c5caa3d90ad8faa486094942acc5))
+
 ## [2.0.25](https://github.com/UziTech/notifications/compare/v2.0.24...v2.0.25) (2021-05-27)
 
 
