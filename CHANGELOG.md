@@ -1,3 +1,10 @@
+## [2.0.27](https://github.com/UziTech/notifications/compare/v2.0.26...v2.0.27) (2021-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dompurify to ^2.3.0 ([8205a52](https://github.com/UziTech/notifications/commit/8205a5236f5327df31c9e5c9a57b14a8f42b00f8))
+
 ## [2.0.26](https://github.com/UziTech/notifications/compare/v2.0.25...v2.0.26) (2021-06-28)
 
 
