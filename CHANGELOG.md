@@ -1,3 +1,10 @@
+## [2.0.28](https://github.com/UziTech/notifications/compare/v2.0.27...v2.0.28) (2021-07-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency luxon to ^1.28.0 ([61c65fd](https://github.com/UziTech/notifications/commit/61c65fd6e8082973cd2acfab8aa72a977ecd06ae))
+
 ## [2.0.27](https://github.com/UziTech/notifications/compare/v2.0.26...v2.0.27) (2021-07-06)
 
 
