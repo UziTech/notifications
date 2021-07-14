@@ -1,3 +1,11 @@
+## [2.0.29](https://github.com/UziTech/notifications/compare/v2.0.28...v2.0.29) (2021-07-14)
+
+
+### Bug Fixes
+
+* update issue body to match atom issue template ([393e56b](https://github.com/UziTech/notifications/commit/393e56b90991c45d567071a5a94b42ee86727b25))
+* update luxon to v2.0.1 ([eae6a54](https://github.com/UziTech/notifications/commit/eae6a543e27d256938b45e775f46dd6ae0d056a2))
+
 ## [2.0.28](https://github.com/UziTech/notifications/compare/v2.0.27...v2.0.28) (2021-07-09)
 
 
